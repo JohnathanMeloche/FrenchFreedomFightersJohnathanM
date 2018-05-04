@@ -1,5 +1,4 @@
--- This is the Splash Screen Scene.
-
+--This is the Main Menu Scene
 
 -- Calling composer library
 local composer = require( "composer" )
@@ -7,32 +6,28 @@ local composer = require( "composer" )
 local pex = require "pony.com.ponywolf.pex"
 
 -- Naming Scene
-sceneName = "splash_screen"
+sceneName = "main_menu"
 
 -- Creating Scene Object
 local scene = composer.newScene( sceneName )
 
 ------------------------------------------------------
 
+local mainMenuImage
+local playButton
+local optionsButton
+local creditsButton
+local acheivementsButton
+local ButtonEmitter1
+local ButtonEmitter2
+local ButtonEmitter3
+local ButtonEmitter4
 
 
 
 
-local logoSword
-local logoSwordBroken
-local logoEarth
-local logoF
-local logoTitle
 
 
-
-
-
-
-
-local function MainMenuTransition()
-	composer.gotoScene( "main_menu" )
-end
 
 
 
@@ -42,68 +37,8 @@ function scene:create( event )
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
+    mainMenuImage = ("Images/MainMenu.png", 1)
 
-	-- Declares Local Image Variables
-
-	local earthRotate
-	local riseSpeed = 100
-	local logoRise
-
-
-
-
-
-	-- Displays Part of the Company logo to be used for animation and sets properties
-	logoSword = display.newImageRect("Images/splashScreenVariations/logosword.png", 1400, 1000)
-	logoSword.x = 800
-	logoSword.y = 700
-
-	sceneGroup:insert(logoSword)
-
-	-- Displays Part of the Company logo to be used for animation and sets properties
-	logoSwordBroken = display.newImageRect("Images/splashScreenVariations/logoswordbroken.png", 1400, 1000)
-	logoSwordBroken.x = 155
-	logoSwordBroken.y = 650
-	logoSwordBroken.isVisible = false
-
-	sceneGroup:insert(logoSwordBroken)
-	
-	-- Displays Part of the Company logo to be used for animation and sets properties
-	logoEarth = display.newImageRect("Images/splashScreenVariations/logoEarth.png", 500, 500)
-	logoEarth.x = 1100
-	logoEarth.y = 300
-
-	sceneGroup:insert(logoEarth)
-	
-	-- Displays Part of the Company logo to be used for animation and sets properties
-	logoF = display.newImageRect("Images/splashScreenVariations/logoF.png", 1400, 1000)
-	logoF.x = 150
-	logoF.y = 1000
-
-	sceneGroup:insert(logoF)
-	
-	-- Y must be 600
-
-	-- Displays Part of the Company logo to be used for animation and sets properties
-	logoTitle = display.newImageRect("Images/splashScreenVariations/logoTitle.png", 1400, 150)
-	logoTitle.x = 720
-	logoTitle.y = 1320
-
-	sceneGroup:insert(logoTitle)
-	
-
-
-	local function logoRiseUp()
-		logoRise = logoF.y - riseSpeed
-		timer.performWithDelay(300, logoRise)
-	end
-
-	local function rotateEarth()
-		earthRotate = logoEarth:rotate(.7)
-		timer.performWithDelay(300, earthRotate)
-	end
-	logoRiseUp()
-	Runtime:addEventListener("enterFrame", rotateEarth)
 
 end
 
@@ -140,12 +75,6 @@ function scene:hide( event )
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
         RemoveCollisionListeners()
-        RemovePhysicsBodies()
-
-        physics.stop()
-        RemoveArrowEventListeners()
-        RemoveRuntimeListeners()
-        display.remove(character)
     end
 
 end --function scene:hide( event )
@@ -181,3 +110,9 @@ scene:addEventListener( "destroy", scene )
 -------------------------------------------------------
 
 return scene
+
+
+
+
+
+

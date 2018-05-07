@@ -13,21 +13,48 @@ local scene = composer.newScene( sceneName )
 
 ------------------------------------------------------
 
-local mainMenuImage
-local playButton
-local optionsButton
-local creditsButton
-local acheivementsButton
+local mainMenuImage = display.newImageRect("Images/MainMenu.png", 1440, 2000)
+mainMenuImage.x = 720
+mainMenuImage.y = 450
+local playButton = display.newImageRect("Images/PlayButtonUnpressed.png", 560, 190)
+playButton.x = 720
+playButton.y = 500
+local optionsButton = display.newImageRect("Images/OptionsButtonUnpressed.png", 560, 190)
+optionsButton.x = 720
+optionsButton.y = 700
+local controlsButton = display.newImageRect("Images/ControlsButtonUnpressed.png", 560, 190)
+controlsButton.x = 720
+controlsButton.y = 900
+local creditsButton = display.newImageRect("Images/CreditsButtonUnpressed.png", 560, 190)
+creditsButton.x = 720
+creditsButton.y = 1100
+local achievementsButton = display.newImageRect("Images/AchievementButtonUnpressed.png", 560, 190)
+achievementsButton.x = 720
+achievementsButton.y = 1300
+local playButtonPressed = display.newImageRect("Images/PlayButtonPressed.png", 560, 190)
+playButtonPressed.x = 720
+playButtonPressed.y = 500
+playButtonPressed.isVisible = false
+local optionsButtonPressed = display.newImageRect("Images/OptionsButtonPressed.png", 560, 190)
+optionsButtonPressed.x = 720
+optionsButtonPressed.y = 700
+optionsButtonPressed.isVisible = false
+local controlsButtonPressed = display.newImageRect("Images/ControlsButtonPressed.png", 560, 190)
+controlsButtonPressed.x = 720
+controlsButtonPressed.y = 900
+controlsButtonPressed.isVisible = false
+local creditsButtonPressed = display.newImageRect("Images/CreditsButtonPressed.png", 560, 190)
+creditsButtonPressed.x = 720
+creditsButtonPressed.y = 1100
+creditsButtonPressed.isVisible = false
+local achievementsButtonPressed = display.newImageRect("Images/AchievementButtonPressed.png", 560, 190)
+achievementsButtonPressed.x = 720
+achievementsButtonPressed.y = 1300
+achievementsButtonPressed.isVisible = false
 local ButtonEmitter1
 local ButtonEmitter2
 local ButtonEmitter3
 local ButtonEmitter4
-
-
-
-
-
-
 
 
 
@@ -37,7 +64,6 @@ function scene:create( event )
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
-    mainMenuImage = ("Images/MainMenu.png", 1)
 
 
 end
@@ -74,7 +100,6 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
-        RemoveCollisionListeners()
     end
 
 end --function scene:hide( event )

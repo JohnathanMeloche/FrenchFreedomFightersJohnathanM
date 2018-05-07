@@ -17,7 +17,7 @@ local scene = composer.newScene( sceneName )
 
 
 
-
+local backgroundColour = display.setDefault ( "background", 123/255, 123/255, 130/255)
 local logoSword
 local logoSwordBroken
 local logoEarth
@@ -34,6 +34,7 @@ local function MainMenuTransition()
 	composer.gotoScene( "main_menu" )
 end
 
+timer.performWithDelay(4000, MainMenuTransition)
 
 
 
@@ -44,7 +45,6 @@ function scene:create( event )
     local sceneGroup = self.view
 
 	-- Declares Local Image Variables
-
 	local earthRotate
 	local riseSpeed = 100
 	local logoRise
@@ -62,23 +62,23 @@ function scene:create( event )
 
 	-- Displays Part of the Company logo to be used for animation and sets properties
 	logoSwordBroken = display.newImageRect("Images/splashScreenVariations/logoswordbroken.png", 1400, 1000)
-	logoSwordBroken.x = 155
+	logoSwordBroken.x = 510
 	logoSwordBroken.y = 650
-	logoSwordBroken.isVisible = false
+	logoSwordBroken.isVisible = true
 
 	sceneGroup:insert(logoSwordBroken)
 	
 	-- Displays Part of the Company logo to be used for animation and sets properties
 	logoEarth = display.newImageRect("Images/splashScreenVariations/logoEarth.png", 500, 500)
 	logoEarth.x = 1100
-	logoEarth.y = 300
+	logoEarth.y = -200
 
 	sceneGroup:insert(logoEarth)
 	
 	-- Displays Part of the Company logo to be used for animation and sets properties
 	logoF = display.newImageRect("Images/splashScreenVariations/logoF.png", 1400, 1000)
-	logoF.x = 150
-	logoF.y = 1000
+	logoF.x = 500
+	logoF.y = 600
 
 	sceneGroup:insert(logoF)
 	
@@ -94,16 +94,14 @@ function scene:create( event )
 
 
 	local function logoRiseUp()
-		logoRise = logoF.y - riseSpeed
-		timer.performWithDelay(300, logoRise)
+		logoRise = logoF.y + riseSpeed
 	end
 
 	local function rotateEarth()
 		earthRotate = logoEarth:rotate(.7)
-		timer.performWithDelay(300, earthRotate)
 	end
-	logoRiseUp()
-	Runtime:addEventListener("enterFrame", rotateEarth)
+
+	Runtime:addEventListener("enterFrame", rotateEarth, logoRiseUp)
 
 end
 
@@ -139,13 +137,6 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
-        RemoveCollisionListeners()
-        RemovePhysicsBodies()
-
-        physics.stop()
-        RemoveArrowEventListeners()
-        RemoveRuntimeListeners()
-        display.remove(character)
     end
 
 end --function scene:hide( event )

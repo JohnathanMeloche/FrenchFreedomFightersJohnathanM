@@ -23,7 +23,8 @@ local logoSwordBroken
 local logoEarth
 local logoF
 local logoTitle
-
+local swordSound = audio.loadSound("Sounds/sword.mp3")
+local swordPlay = audio.play(swordSound)
 
 
 
@@ -46,8 +47,8 @@ function scene:create( event )
 
 	-- Declares Local Image Variables
 	local earthRotate
-	local riseSpeed = 100
-	local logoRise
+	local riseSpeed = -5
+	local riseSpeed2 = -6
 
 
 
@@ -55,18 +56,10 @@ function scene:create( event )
 
 	-- Displays Part of the Company logo to be used for animation and sets properties
 	logoSword = display.newImageRect("Images/splashScreenVariations/logosword.png", 1400, 1000)
-	logoSword.x = 800
-	logoSword.y = 700
+	logoSword.x = 1200
+	logoSword.y = 600
 
 	sceneGroup:insert(logoSword)
-
-	-- Displays Part of the Company logo to be used for animation and sets properties
-	logoSwordBroken = display.newImageRect("Images/splashScreenVariations/logoswordbroken.png", 1400, 1000)
-	logoSwordBroken.x = 510
-	logoSwordBroken.y = 650
-	logoSwordBroken.isVisible = true
-
-	sceneGroup:insert(logoSwordBroken)
 	
 	-- Displays Part of the Company logo to be used for animation and sets properties
 	logoEarth = display.newImageRect("Images/splashScreenVariations/logoEarth.png", 500, 500)
@@ -77,31 +70,48 @@ function scene:create( event )
 	
 	-- Displays Part of the Company logo to be used for animation and sets properties
 	logoF = display.newImageRect("Images/splashScreenVariations/logoF.png", 1400, 1000)
-	logoF.x = 500
-	logoF.y = 600
+	logoF.x = 600
+	logoF.y = 1300
 
 	sceneGroup:insert(logoF)
 	
 	-- Y must be 600
 
 	-- Displays Part of the Company logo to be used for animation and sets properties
-	logoTitle = display.newImageRect("Images/splashScreenVariations/logoTitle.png", 1400, 150)
+	logoTitle = display.newImageRect("Images/splashScreenVariations/logoTitle.png", 1400, 200)
 	logoTitle.x = 720
-	logoTitle.y = 1320
+	logoTitle.y = 1200
+	logoTitle:setFillColor (146/255, 148/255, 146/255)
 
 	sceneGroup:insert(logoTitle)
 	
 
 
-	local function logoRiseUp()
-		logoRise = logoF.y + riseSpeed
-	end
+
 
 	local function rotateEarth()
 		earthRotate = logoEarth:rotate(.7)
+		if logoF.y < 550 then
+			return
+		else
+			logoF.y = logoF.y + riseSpeed
+		end
+	
 	end
 
-	Runtime:addEventListener("enterFrame", rotateEarth, logoRiseUp)
+	local function moveSword()
+		if logoSword.x < 400 then
+			return
+		else
+			logoSword.x = logoSword.x + riseSpeed2
+		end
+		if logoSword.x < 400 then
+			logoSword:rotate(-35)
+		end
+	end
+
+	Runtime:addEventListener("enterFrame", rotateEarth)
+	Runtime:addEventListener("enterFrame", moveSword)
 
 end
 
